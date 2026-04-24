@@ -1,78 +1,327 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>개인정보처리방침 - Pickle</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nest Planet — Privacy Policy / 개인정보처리방침</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet" />
   <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      max-width: 720px;
-      margin: 40px auto;
-      padding: 20px;
-      color: #222;
-      line-height: 1.7;
+    :root {
+      --green: #4CAF7D;
+      --green-light: #E8F5EE;
+      --dark: #1A2420;
+      --gray: #6B7B74;
+      --border: #D8E8E0;
+      --bg: #F7FAF8;
+      --white: #FFFFFF;
     }
-    h1 {
-      font-size: 28px;
-    }
-    h2 {
-      font-size: 20px;
-      margin-top: 28px;
-    }
-    a {
-      color: #2563eb;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'DM Sans', 'Noto Sans KR', sans-serif; background: var(--bg); color: var(--dark); line-height: 1.8; }
+
+    header { background: var(--white); border-bottom: 1px solid var(--border); padding: 24px 0; position: sticky; top: 0; z-index: 100; }
+    .header-inner { max-width: 760px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-icon { width: 36px; height: 36px; background: var(--green); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+    .logo-text { font-size: 18px; font-weight: 700; color: var(--dark); }
+    .lang-toggle { display: flex; background: var(--green-light); border-radius: 8px; padding: 3px; gap: 2px; }
+    .lang-btn { padding: 6px 14px; border: none; border-radius: 6px; font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.2s; background: transparent; color: var(--gray); }
+    .lang-btn.active { background: var(--white); color: var(--green); box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+
+    main { max-width: 760px; margin: 0 auto; padding: 48px 24px 80px; }
+
+    .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--green); text-decoration: none; font-size: 14px; font-weight: 500; margin-bottom: 24px; transition: gap 0.2s; }
+    .back-link:hover { gap: 10px; }
+
+    .policy-header { margin-bottom: 40px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
+    .policy-badge { display: inline-block; background: var(--green-light); color: var(--green); font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 20px; margin-bottom: 16px; letter-spacing: 0.5px; text-transform: uppercase; }
+    .policy-title { font-size: 32px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 12px; }
+    .policy-meta { font-size: 14px; color: var(--gray); }
+
+    .section { margin-bottom: 40px; }
+    .section-title { font-size: 17px; font-weight: 700; margin-bottom: 14px; padding-left: 14px; border-left: 3px solid var(--green); line-height: 1.4; }
+    .section-body { font-size: 15px; color: #3A4A44; line-height: 1.85; }
+    .section-body p { margin-bottom: 10px; }
+    .section-body ul { padding-left: 20px; margin: 8px 0; }
+    .section-body li { margin-bottom: 6px; }
+
+    .info-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin-top: 12px; }
+    .info-card .row { display: flex; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+    .info-card .row:last-child { border-bottom: none; }
+    .info-card .label { font-weight: 600; color: var(--dark); min-width: 140px; }
+    .info-card .value { color: var(--gray); }
+
+    .contact-box { background: var(--green-light); border-radius: 12px; padding: 24px; margin-top: 12px; }
+    .contact-box p { font-size: 14px; color: var(--dark); margin-bottom: 6px; }
+    .contact-box a { color: var(--green); font-weight: 600; text-decoration: none; }
+
+    .lang-section { display: none; }
+    .lang-section.active { display: block; }
+
+    footer { text-align: center; padding: 32px 24px; font-size: 13px; color: var(--gray); border-top: 1px solid var(--border); }
+
+    @media (max-width: 600px) {
+      .policy-title { font-size: 24px; }
+      .info-card .row { flex-direction: column; gap: 4px; }
+      .info-card .label { min-width: unset; }
     }
   </style>
 </head>
 <body>
 
-  <p><a href="index.html">← 홈으로</a></p>
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">🌏</div>
+      <span class="logo-text">Nest Planet</span>
+    </a>
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('ko')">한국어</button>
+      <button class="lang-btn" onclick="setLang('en')">English</button>
+    </div>
+  </div>
+</header>
 
-  <h1>개인정보처리방침</h1>
-  <p>최종 수정일: 2026년 4월 25일</p>
+<main>
 
-  <p>NestPlanet(이하 "회사")은 이용자의 개인정보를 중요하게 생각하며, 「개인정보 보호법」 등 관련 법령을 준수합니다. 본 방침은 회사가 제공하는 모바일 앱 "Pickle"의 개인정보 처리에 관한 사항을 안내합니다.</p>
+  <!-- 한국어 -->
+  <div class="lang-section active" id="ko">
+    <a href="index.html" class="back-link">← 홈으로</a>
 
-  <h2>1. 수집하는 개인정보 항목</h2>
-  <ul>
-    <li>필수: 이메일, 소셜 로그인 ID(Google/Apple), 프로필 이름, 프로필 사진 URL</li>
-    <li>자동 수집: 기기 식별자, FCM 토큰, 앱 이용 로그, 오류 리포트</li>
-    <li>선택: 여행 기록, 영수증 이미지, 위치 정보(동의 시)</li>
-  </ul>
+    <div class="policy-header">
+      <div class="policy-badge">Legal</div>
+      <h1 class="policy-title">개인정보처리방침</h1>
+      <p class="policy-meta">최종 수정일: 2026년 4월 25일 · Nest Planet</p>
+    </div>
 
-  <h2>2. 개인정보의 수집·이용 목적</h2>
-  <ul>
-    <li>회원 가입 및 본인 확인</li>
-    <li>여행 가계부, 영수증 OCR, 환율 변환 등 서비스 제공</li>
-    <li>푸시 알림 발송(환율 알림 등)</li>
-    <li>앱 안정성 모니터링 및 장애 대응</li>
-  </ul>
+    <div class="section">
+      <h2 class="section-title">1. 개요</h2>
+      <div class="section-body">
+        <p>Nest Planet(이하 "회사")은 이용자의 개인정보를 중요하게 생각하며, 「개인정보 보호법」 등 관련 법령을 준수합니다. 본 방침은 회사가 제공하는 모바일 앱 "Pickle"의 개인정보 처리에 관한 사항을 안내합니다.</p>
+      </div>
+    </div>
 
-  <h2>3. 개인정보의 보유 및 이용 기간</h2>
-  <p>회원 탈퇴 시 즉시 파기하며, 관련 법령에 따라 일정 기간 보관이 필요한 경우 해당 기간 동안 보관합니다.</p>
+    <div class="section">
+      <h2 class="section-title">2. 수집하는 개인정보 항목</h2>
+      <div class="section-body">
+        <div class="info-card">
+          <div class="row">
+            <span class="label">필수</span>
+            <span class="value">이메일, 소셜 로그인 ID(Google/Apple), 프로필 이름, 프로필 사진 URL</span>
+          </div>
+          <div class="row">
+            <span class="label">자동 수집</span>
+            <span class="value">기기 식별자, FCM 토큰, 앱 이용 로그, 오류 리포트</span>
+          </div>
+          <div class="row">
+            <span class="label">선택</span>
+            <span class="value">여행 기록, 영수증 이미지, 위치 정보(동의 시)</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <h2>4. 개인정보의 제3자 제공</h2>
-  <p>회사는 이용자의 개인정보를 제3자에게 제공하지 않으며, 아래의 경우에만 외부 서비스를 이용합니다.</p>
-  <ul>
-    <li>인증 및 데이터 저장: Supabase (데이터베이스, 인증)</li>
-    <li>푸시 알림: Google Firebase Cloud Messaging</li>
-    <li>영수증 OCR: Google Cloud Vision, OpenAI</li>
-    <li>지도 및 장소 검색: Google Maps, Google Places</li>
-    <li>구독 결제: RevenueCat, Google Play, Apple App Store</li>
-  </ul>
+    <div class="section">
+      <h2 class="section-title">3. 개인정보의 수집·이용 목적</h2>
+      <div class="section-body">
+        <ul>
+          <li>회원 가입 및 본인 확인</li>
+          <li>여행 가계부, 영수증 OCR, 환율 변환 등 서비스 제공</li>
+          <li>푸시 알림 발송 (환율 알림 등)</li>
+          <li>앱 안정성 모니터링 및 장애 대응</li>
+        </ul>
+      </div>
+    </div>
 
-  <h2>5. 이용자의 권리</h2>
-  <p>이용자는 언제든지 본인의 개인정보를 열람, 수정, 삭제할 수 있으며, 앱 내 마이페이지 또는 아래 연락처를 통해 요청할 수 있습니다.</p>
+    <div class="section">
+      <h2 class="section-title">4. 개인정보의 보유 및 이용 기간</h2>
+      <div class="section-body">
+        <p>회원 탈퇴 시 즉시 파기하며, 관련 법령에 따라 일정 기간 보관이 필요한 경우 해당 기간 동안 보관합니다.</p>
+      </div>
+    </div>
 
-  <h2>6. 개인정보 보호 책임자</h2>
-  <ul>
-    <li>상호: NestPlanet</li>
-    <li>이메일: <a href="mailto:nestplanet.official@gmail.com">nestplanet.official@gmail.com</a></li>
-  </ul>
+    <div class="section">
+      <h2 class="section-title">5. 개인정보의 제3자 제공 및 위탁</h2>
+      <div class="section-body">
+        <p>회사는 이용자의 개인정보를 제3자에게 제공하지 않으며, 서비스 운영을 위해 아래 외부 서비스를 이용합니다.</p>
+        <div class="info-card">
+          <div class="row">
+            <span class="label">Supabase</span>
+            <span class="value">데이터베이스 및 인증 서비스</span>
+          </div>
+          <div class="row">
+            <span class="label">Firebase Cloud Messaging</span>
+            <span class="value">푸시 알림 발송</span>
+          </div>
+          <div class="row">
+            <span class="label">Google Cloud Vision · OpenAI</span>
+            <span class="value">영수증 OCR 분석</span>
+          </div>
+          <div class="row">
+            <span class="label">Google Maps · Places</span>
+            <span class="value">지도 및 장소 검색</span>
+          </div>
+          <div class="row">
+            <span class="label">RevenueCat · Google Play · App Store</span>
+            <span class="value">구독 결제 및 인앱 구매 관리</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <h2>7. 방침 변경</h2>
-  <p>본 방침은 법령 및 서비스 변경에 따라 개정될 수 있으며, 변경 시 앱 공지사항 또는 본 페이지를 통해 고지합니다.</p>
+    <div class="section">
+      <h2 class="section-title">6. 이용자의 권리</h2>
+      <div class="section-body">
+        <p>이용자는 언제든지 본인의 개인정보를 열람, 수정, 삭제할 수 있으며, 앱 내 마이페이지 또는 아래 연락처를 통해 요청할 수 있습니다.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">7. 방침 변경</h2>
+      <div class="section-body">
+        <p>본 방침은 법령 및 서비스 변경에 따라 개정될 수 있으며, 변경 시 앱 공지사항 또는 본 페이지를 통해 고지합니다.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">8. 개인정보 보호 책임자</h2>
+      <div class="section-body">
+        <div class="contact-box">
+          <p><strong>Nest Planet</strong></p>
+          <p>개인정보 관련 문의: <a href="mailto:nestplanet.official@gmail.com">nestplanet.official@gmail.com</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- English -->
+  <div class="lang-section" id="en">
+    <a href="index.html" class="back-link">← Back to Home</a>
+
+    <div class="policy-header">
+      <div class="policy-badge">Legal</div>
+      <h1 class="policy-title">Privacy Policy</h1>
+      <p class="policy-meta">Last updated: April 25, 2026 · Nest Planet</p>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">1. Overview</h2>
+      <div class="section-body">
+        <p>Nest Planet ("we," "our," or "us") values your privacy and complies with applicable data protection laws, including Korea's Personal Information Protection Act. This Privacy Policy explains how we handle personal information in our mobile app "Pickle."</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">2. Information We Collect</h2>
+      <div class="section-body">
+        <div class="info-card">
+          <div class="row">
+            <span class="label">Required</span>
+            <span class="value">Email, social login ID (Google/Apple), profile name, profile photo URL</span>
+          </div>
+          <div class="row">
+            <span class="label">Automatically Collected</span>
+            <span class="value">Device identifier, FCM token, app usage logs, error reports</span>
+          </div>
+          <div class="row">
+            <span class="label">Optional</span>
+            <span class="value">Trip records, receipt images, location data (with consent)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">3. How We Use Your Information</h2>
+      <div class="section-body">
+        <ul>
+          <li>Account registration and identity verification</li>
+          <li>Providing core services (travel expense tracking, receipt OCR, currency conversion)</li>
+          <li>Sending push notifications (exchange rate alerts, etc.)</li>
+          <li>App stability monitoring and error response</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">4. Data Retention</h2>
+      <div class="section-body">
+        <p>Your personal data is deleted immediately upon account deletion. Data required to be retained by applicable law is held only for the legally required period, then deleted.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">5. Third-Party Services</h2>
+      <div class="section-body">
+        <p>We do not sell or share your personal data with third parties. We use the following external services to operate the app:</p>
+        <div class="info-card">
+          <div class="row">
+            <span class="label">Supabase</span>
+            <span class="value">Database and authentication infrastructure</span>
+          </div>
+          <div class="row">
+            <span class="label">Firebase Cloud Messaging</span>
+            <span class="value">Push notifications</span>
+          </div>
+          <div class="row">
+            <span class="label">Google Cloud Vision · OpenAI</span>
+            <span class="value">Receipt OCR analysis</span>
+          </div>
+          <div class="row">
+            <span class="label">Google Maps · Places</span>
+            <span class="value">Maps and place search</span>
+          </div>
+          <div class="row">
+            <span class="label">RevenueCat · Google Play · App Store</span>
+            <span class="value">Subscription and in-app purchase management</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">6. Your Rights</h2>
+      <div class="section-body">
+        <p>You may access, correct, or delete your personal data at any time through the app's My Page or by contacting us at the email below.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">7. Changes to This Policy</h2>
+      <div class="section-body">
+        <p>This policy may be updated in response to legal or service changes. Significant changes will be announced through in-app notice or this page.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">8. Contact Us</h2>
+      <div class="section-body">
+        <div class="contact-box">
+          <p><strong>Nest Planet</strong></p>
+          <p>Privacy inquiries: <a href="mailto:nestplanet.official@gmail.com">nestplanet.official@gmail.com</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  © 2026 Nest Planet · All rights reserved
+</footer>
+
+<script>
+  function setLang(lang) {
+    document.querySelectorAll('.lang-section').forEach(function(el) {
+      el.classList.remove('active');
+    });
+    document.querySelectorAll('.lang-btn').forEach(function(el) {
+      el.classList.remove('active');
+    });
+    document.getElementById(lang).classList.add('active');
+    document.querySelector('[onclick="setLang(\'' + lang + '\')"]').classList.add('active');
+    document.documentElement.lang = lang;
+  }
+</script>
 
 </body>
 </html>
